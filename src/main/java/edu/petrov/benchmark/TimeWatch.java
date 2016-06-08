@@ -1,4 +1,4 @@
-package edu.goit.petrov.module01;
+package edu.petrov.benchmark;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +17,10 @@ public class TimeWatch {
         return new TimeWatch();
     }
 
+    public static long convert(long timeNano, TimeUnit unit) {
+        return unit.convert(timeNano, TimeUnit.NANOSECONDS);
+    }
+
     public TimeWatch reset() {
         start = System.nanoTime();
         return this;
@@ -28,9 +32,5 @@ public class TimeWatch {
 
     public long time(TimeUnit unit) {
         return unit.convert(time(), TimeUnit.NANOSECONDS);
-    }
-
-    public static long convert(long timeNano, TimeUnit unit) {
-        return unit.convert(timeNano, TimeUnit.NANOSECONDS);
     }
 }

@@ -1,4 +1,4 @@
-package edu.goit.petrov.module01;
+package edu.petrov.benchmark;
 
 import java.util.*;
 
@@ -96,6 +96,12 @@ public class CollectionsBenchmark {
         return Math.round(timeWatch.time() / 3.0);
     }
 
+    private long benchmarkMethodOne(IBenchmarkMethod method) {
+        TimeWatch timeWatch = TimeWatch.start();
+        method.run();
+        return Math.round(timeWatch.time());
+    }
+
     public long benchmarkArrayListAdd() {
         return benchmarkMethodIterations(()->doListAdd(new ArrayList<>(arrayList)), iterations);
     }
@@ -153,19 +159,19 @@ public class CollectionsBenchmark {
     }
 
     public long benchmarkArrayListPopulate() {
-        return benchmarkMethodIterations(()->doPopulate(new ArrayList<>(arrayList), size), iterations);
+        return benchmarkMethodOne(() -> doPopulate(new ArrayList<>(arrayList), size));
     }
 
     public long benchmarkLinkedListPopulate() {
-        return benchmarkMethodIterations(()->doPopulate(new LinkedList<>(linkedList), size), iterations);
+        return benchmarkMethodOne(() -> doPopulate(new LinkedList<>(linkedList), size));
     }
 
     public long benchmarkHashSetPopulate() {
-        return benchmarkMethodIterations(()->doPopulate(new HashSet<>(hashSet), size), iterations);
+        return benchmarkMethodOne(() -> doPopulate(new HashSet<>(hashSet), size));
     }
 
     public long benchmarkTreeSetPopulate() {
-        return benchmarkMethodIterations(()->doPopulate(new TreeSet<>(treeSet), size), iterations);
+        return benchmarkMethodOne(() -> doPopulate(new TreeSet<>(treeSet), size));
     }
 
     public long benchmarkLinkedListIteratorAdd() {

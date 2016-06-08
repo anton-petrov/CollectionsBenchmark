@@ -1,4 +1,4 @@
-package edu.goit.petrov.module01;
+package edu.petrov.benchmark;
 
 /**
  * Created by anton on 6/7/16.

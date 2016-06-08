@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="app1" />
+        <module name="collections-benchmark" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="app1" target="1.8" />
+      <module name="collections-benchmark" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
