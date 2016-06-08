@@ -6,7 +6,10 @@ import de.vandermeer.asciitable.v2.render.V2_AsciiTableRenderer;
 import de.vandermeer.asciitable.v2.render.WidthAbsoluteEven;
 import de.vandermeer.asciitable.v2.render.WidthLongestWord;
 import de.vandermeer.asciitable.v2.themes.V2_E_TableThemes;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,8 +86,10 @@ public class Main {
         return rt.toString();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         System.out.println("Preparing collections for benchmarking, please, wait...");
+
         CollectionsBenchmark[] benchmark = new CollectionsBenchmark[] {
                 new CollectionsBenchmark(10_000, 100),
                 new CollectionsBenchmark(100_000, 100),
@@ -92,6 +97,7 @@ public class Main {
         };
 
         String benchmarkTablesResult = "";
+
         for (int i = 0, k = 10; i < benchmark.length; i++, k *= 10) {
             System.out.println("Starting benchmark " + k + "K \n");
 
@@ -106,8 +112,8 @@ public class Main {
                     benchmarkResults.get(0)[2] = nano2ms(benchmark[i].benchmarkArrayListRemove()));
             printBenchmarkResult(k + "K.benchmarkArrayListContains",
                     benchmarkResults.get(0)[3] = nano2ms(benchmark[i].benchmarkArrayListContains()));
-            printBenchmarkResult(k + "K.benchmarkArrayListContains",
-                    benchmarkResults.get(0)[4] = nano2ms(benchmark[i].benchmarkArrayListContains()));
+            printBenchmarkResult(k + "K.benchmarkArrayListPopulate",
+                    benchmarkResults.get(0)[4] = nano2ms(benchmark[i].benchmarkArrayListPopulate()));
             printBenchmarkResult(k + "K.benchmarkArrayListIteratorAdd",
                     benchmarkResults.get(0)[5] = nano2ms(benchmark[i].benchmarkArrayListIteratorAdd()));
             printBenchmarkResult(k + "K.benchmarkArrayListIteratorRemove",
@@ -122,8 +128,8 @@ public class Main {
                     benchmarkResults.get(1)[2] = nano2ms(benchmark[i].benchmarkLinkedListRemove()));
             printBenchmarkResult(k + "K.benchmarkLinkedListContains",
                     benchmarkResults.get(1)[3] = nano2ms(benchmark[i].benchmarkLinkedListContains()));
-            printBenchmarkResult(k + "K.benchmarkLinkedListContains",
-                    benchmarkResults.get(1)[4] = nano2ms(benchmark[i].benchmarkLinkedListContains()));
+            printBenchmarkResult(k + "K.benchmarkLinkedListPopulate",
+                    benchmarkResults.get(1)[4] = nano2ms(benchmark[i].benchmarkLinkedListPopulate()));
             printBenchmarkResult(k + "K.benchmarkLinkedListIteratorAdd",
                     benchmarkResults.get(1)[5] = nano2ms(benchmark[i].benchmarkLinkedListIteratorAdd()));
             printBenchmarkResult(k + "K.benchmarkLinkedListIteratorRemove",
@@ -155,6 +161,9 @@ public class Main {
 
             System.out.println("\n");
         }
+
+        File file = new File("BenchmarkResult.txt");
+        FileUtils.writeStringToFile(file, benchmarkTablesResult);
 
     }
 }
